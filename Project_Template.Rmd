@@ -1,0 +1,91 @@
+# Code-a-thon Project Template
+
+This project is intended to help you apply your skills in R in a way that would be conducive for collaborating or creating reproducible analyses.
+
+
+## Data Used
+
+Identify a dataset to analyze. Remember that if you share the data you must **not violate any privacy restrictions**
+
+If you don't have your own data, options for places to find data are listed on https://daseh.org.
+
+You might start by setting up an R Project, importing your data, previewing the data, etc. 
+
+```{r}
+library(tidyverse)
+who<-read_csv(file="2322814_ALL_LATEST.csv")
+who
+colnames(who)
+who1<- who %>% rename(year = DIM_TIME)
+who1
+who2<- who1 %>% rename(country = DIM_GEO_CODE_TYPE)
+who2
+```
+
+**describe** what your data looks like and **where** you got it. Identify what the variables and samples are, or point to a data dictionary. Describe how the data was originally created. 
+#38,424 rows and 16 columns of data
+# data from WHO database
+# World Health Organizatin TB data
+
+# Data Cleaning/Wrangling
+
+Perform any data subsetting, cleaning, or manipulation methods that were described in this course on your data. Examples are: renaming the columns, recoding values, reshaping the data, filtering the data etc. 
+
+You might also research other methods to include here, especially if your data is very unique.
+
+```{r}
+filter(who2)
+```
+
+
+# Data Visualization
+
+Create some visualizations of your data using the esquisse app or the ggplot2 package.
+
+```{r}
+library (tidyverse)
+who2 %>% filter(GEO_NAME_SHORT == "Egypt" |GEO_NAME_SHORT== "Tunisia") %>%
+ggplot( aes(x = year, y = RATE_PER_1000_N, color=GEO_NAME_SHORT))+
+  geom_point()+
+  geom_line() +
+  facet_grid(~DIM_SEX)
+
+
+library(esquisse)
+
+```
+
+
+```{r}
+count (who2, IND_NAME)
+count (who2, GEO_NAME_SHORT)
+```
+
+
+# Data Analysis
+
+Perform a **simple analysis** of your data. This can involve summarizing the data to describe aspects about it (quartiles, means, range etc.) or a simple statistical test. 
+
+Don't forget to describe what analysis you performed and why. Provide some simple **interpretation** about what your analysis might indicate about your data.
+
+```{r}
+
+```
+
+
+# Please include additional sections as desired.
+
+```{r}
+
+```
+
+
+# Versions
+
+Include some information about the version of R and the packages you are using by running sessionInfo().
+
+```{r}
+sessionInfo()
+```
+
+Render your document to an html or pdf using the "Knit" button.
